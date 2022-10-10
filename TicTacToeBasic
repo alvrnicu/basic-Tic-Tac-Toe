@@ -1,76 +1,67 @@
-
-#Lists to append for output desired format
 from re import X
 
 
-ROW0 = ['E', 'E', 'E']
-ROW1 = ['E', 'E', 'E']
-ROW2 = ['E', 'E', 'E']
+ROW0 = [' ', ' ', ' ']
+ROW1 = [' ', ' ', ' ']
+ROW2 = [' ', ' ', ' ']
 
-row = {'top': 0, 'middle': 1, 'bottom': 2}
+#Dictionary for specifying and appending list based on given user-input
 position = {'left': 0, 'middle': 1, 'right': 2}
-win_condition = {1, 2, 3, 4, 5, 6, 7, 8, 9}
-empty_space_count = 9
+row = {'top': 0, 'middle': 1, 'bottom': 2}
 
 def game():
     empty_space_count = 9
+    turn_number = 1
     while empty_space_count > 0:
-#Prints questions to get user-input
+        #PLAYER 1 or 2 TURN WITH MODULUS
+        #Prints questions to get user-input
         print('Is your choice in the top, middle, or bottom row? ')
         user_row = input()
         x = row[user_row]
-        
-
         print('Is your position in that row the left, middle, or right? ')
         user_position = input()
         y = position[user_position]
-
-        player = None
-
-#Chooses whose turn and what spot they are picking
-        if x == 0 and empty_space_count % 2 == 0:
-            player = 'X'
-            ROW0[y] = 'X'
-            
-        elif x == 1 and empty_space_count %2 == 0:
-            player = 'X'
-            ROW1[y] = 'X'
-            
-        elif x == 2 and empty_space_count % 2 == 0:
-            player = 'X'
-            ROW2[y] = 'X'
-            
-        elif x== 0 and empty_space_count % 2 == 1:
-            ROW0[y] = 'O'
-            player = 'O'
-        elif x == 1 and empty_space_count % 2 == 1:
-            ROW1[y] = 'O'
-            player = 'O'
-        else:
-            ROW2[y] = 'O'
-            player = 'O'
-    
+        if turn_number % 2 == 1:
+            if x == 0:
+                ROW0[y] = 'X'
+            elif x == 1:
+                ROW1[y] = 'X'
+            else:
+                ROW2[y] = 'X'
+        elif turn_number % 2 == 0:
+            if x == 0:
+                ROW0[y] = 'O'
+            elif x == 1:
+                ROW1[y] = 'O'
+            else:
+                ROW2[y] = 'O'
 #' '.join command will make a single string from a list with a space inbetween. Whatever is inbetween the ' ' will fill the space 
 #inbetween the objects of the list. For example, ','.join will put a comma in between each object of the list in the new string.
         print(''.join(ROW0))
         print(''.join(ROW1))
         print(''.join(ROW2))
 
+        turn_number += 1
+        if turn_number % 2 == 0:
+            player = 'X'
+        elif turn_number % 2 == 1:
+            player = 'O'
+
 #Checks for winner!
-        if (ROW0[0] == ROW0[1] == ROW0[2]) and 'E' not in ROW0[0] \
-            or (ROW1[0] == ROW1[1] == ROW1[2]) and 'E' not in ROW1[0] \
-            or (ROW2[0] == ROW2[1] == ROW2[2]) and 'E' not in ROW2[0]:
+        if (ROW0[0] == ROW0[1] == ROW0[2]) and ' ' not in ROW0[0] \
+            or (ROW1[0] == ROW1[1] == ROW1[2]) and ' ' not in ROW1[0] \
+            or (ROW2[0] == ROW2[1] == ROW2[2]) and ' ' not in ROW2[0]:
             print(player, "IS GOOD IN HORIZONTAL")
             return
 
-        elif (ROW0[0] == ROW1[0] == ROW2[0]) and 'E' not in ROW0[0] \
-            or (ROW0[1] == ROW1[1] == ROW2[1]) and 'E' not in ROW0[1] \
-            or (ROW0[2] == ROW1[2] == ROW2[2]) and 'E' not in ROW0[2]:
+        elif (ROW0[0] == ROW1[0] == ROW2[0]) and ' ' not in ROW0[0] \
+            or (ROW0[1] == ROW1[1] == ROW2[1]) and ' ' not in ROW0[1] \
+            or (ROW0[2] == ROW1[2] == ROW2[2]) and ' ' not in ROW0[2]:
             print(player, "IS GOOD IN VERTICAL")
             return
 
-        elif (ROW0[0] == ROW1[1] == ROW2[2]) and 'E' not in ROW0[0] \
-            or (ROW0[2] == ROW1[1] == ROW2[0]) and 'E' not in ROW0[2]:
+        elif (ROW0[0] == ROW1[1] == ROW2[2]) and ' ' not in ROW0[0] \
+            or (ROW0[2] == ROW1[1] == ROW2[0]) and ' ' not in ROW0[2]:
             print(player, "IS GOOD IN DIAGONAL")
             return
       
